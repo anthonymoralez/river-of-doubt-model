@@ -178,17 +178,19 @@ class Game
 end
 
 
+GAMES_TO_RUN=100
+ROUNDS_PER_GAME=15
 results = Hash.new(0)
-10000.times do
+GAMES_TO_RUN.times do
     game = Game.new
-    15.times do |i|
+    ROUNDS_PER_GAME.times do |i|
         if game.turn() == :game_over
             results[i+1]+=1
             break
         end
-        results[16] += 1 if i == 14
+        results[ROUNDS_PER_GAME + 1] += 1 if i == ROUNDS_PER_GAME-1
     end
-    #puts game
+    puts game
 end
 
-puts results.keys.sort.map {|k| "#{k}: #{"*"*(results[k]/100)} #{results[k] / 10000.0}" }.join "\n"
+puts results.keys.sort.map {|k| "#{k}: #{"*"*(results[k]/(GAMES_TO_RUN/100))} #{results[k] / (GAMES_TO_RUN*1.0)}" }.join "\n"
